@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
 import crypto, { hash } from "crypto";
 import sendMailer from "../utils/sendMailer.js";
+import { tracingChannel } from "diagnostics_channel";
 
 //Login USer
 
@@ -166,6 +167,22 @@ export const resetPassword = async (req, res) => {
     return res
       .status(200)
       .json({ success: true, message: "Password reset successfully" });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server side error",
+      message: error.message,
+    });
+  }
+};
+
+export const getMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    return res.status(200).json({
+      success: true,
+      user,
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
