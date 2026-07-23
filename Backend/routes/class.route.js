@@ -1,0 +1,17 @@
+import express from "express";
+import protect from "../middlewares/auth.middleware.js";
+import authorizeRoles from "../middlewares/role.middleware.js";
+import {
+  createClass,
+  deleteClass,
+  getAllClasses,
+  updateClass,
+} from "../controllers/class.controller.js";
+const router = express.Router();
+
+router.post("/create", protect, authorizeRoles("admin"), createClass);
+router.get("/get", protect, authorizeRoles("admin"), getAllClasses);
+router.put("/:id", protect, authorizeRoles("admin"), updateClass);
+router.delete("/:id", protect, authorizeRoles("admin"), deleteClass);
+
+export default router;

@@ -7,6 +7,8 @@ import helmet from "helmet";
 import connectDB from "./config/db.js";
 import seederAdmin from "./utils/adminSeeder.js";
 import authRouter from "./routes/auth.routes.js";
+import classRoute from "./routes/class.route.js";
+import sectionRoute from "./routes/section.route.js";
 
 dotenv.config();
 
@@ -28,6 +30,8 @@ seederAdmin();
 
 //route
 app.use("/api/auth", authRouter);
+app.use("/api/class", classRoute);
+app.use("/api/section", sectionRoute);
 
 app.get("/", (req, res) => {
   res.status(200).json({
