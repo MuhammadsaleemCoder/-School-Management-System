@@ -1,8 +1,8 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const sectionSchema = new mongoose.Schema(
   {
-    SectionName: {
+    sectionName: {
       type: String,
       required: true,
     },

@@ -19,7 +19,10 @@ export const createSection = async (req, res) => {
       });
     }
 
-    const existingSection = await Section.findOne({ sectionName, classId });
+    const existingSection = await Section.findOne({
+      sectionName,
+      class: classId,
+    });
     if (existingSection) {
       return res.status(400).json({
         success: false,
@@ -40,7 +43,7 @@ export const createSection = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: message.error,
+      message: error,
     });
   }
 };
