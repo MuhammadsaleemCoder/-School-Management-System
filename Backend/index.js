@@ -9,6 +9,7 @@ import seederAdmin from "./utils/adminSeeder.js";
 import authRouter from "./routes/auth.routes.js";
 import classRoute from "./routes/class.route.js";
 import sectionRoute from "./routes/section.route.js";
+import userManagementRoutes from "./routes/userManagment.routes.js";
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ seederAdmin();
 app.use("/api/auth", authRouter);
 app.use("/api/class", classRoute);
 app.use("/api/section", sectionRoute);
+app.use("/api/user-management", userManagementRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({

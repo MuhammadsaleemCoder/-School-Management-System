@@ -1,6 +1,4 @@
-import studentProfile from "../model/studentProfile.model";
-import studentProfile from "../model/studentProfile.model";
-import teacherProfile from "../model/teacherProfile.js";
+import studentProfile from "../model/studentProfile.model.js";
 import teacherProfile from "../model/teacherProfile.js";
 import User from "../model/user.model.js";
 import bcrypt from "bcryptjs";
@@ -8,21 +6,20 @@ import bcrypt from "bcryptjs";
 export const createStudent = async (req, res) => {
   try {
     const {
-        name,
-        password,
-        email,
-        classId,
-        sectionId,
-        rollNumber,
-        fatherName,
-        motherName,
-        phone,
-        gender,
-        dob,
-        address,
-        admissionDate,
-      } = req,
-      body;
+      name,
+      password,
+      email,
+      classId,
+      sectionId,
+      rollNumber,
+      fatherName,
+      motherName,
+      phone,
+      gender,
+      dob,
+      address,
+      admissionDate,
+    } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -39,7 +36,7 @@ export const createStudent = async (req, res) => {
       role: "student",
     });
 
-    const studentProfile = await studentProfile.create({
+    const newStudentProfile = await studentProfile.create({
       user: user._id,
       class: classId,
       section: sectionId,
@@ -56,7 +53,7 @@ export const createStudent = async (req, res) => {
       success: true,
       message: "Student created successfully",
       user,
-      studentProfile,
+      newStudentProfile,
     });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -112,7 +109,7 @@ export const updateStudent = async (req, res) => {
   }
 };
 
-const deleteStudent = async (req, res) => {
+export const deleteStudent = async (req, res) => {
   try {
     const student = await studentProfile.findById(req.params.id);
     if (!student) {
@@ -147,7 +144,7 @@ export const createTeacher = async (req, res) => {
       gender,
       address,
     } = req.body;
-    const existingTeacher = await findOne({ email });
+    const existingTeacher = await User.findOne({ email });
     if (existingTeacher) {
       return res
         .status(400)
