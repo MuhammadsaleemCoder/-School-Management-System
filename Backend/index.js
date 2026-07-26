@@ -10,6 +10,11 @@ import authRouter from "./routes/auth.routes.js";
 import classRoute from "./routes/class.route.js";
 import sectionRoute from "./routes/section.route.js";
 import userManagementRoutes from "./routes/userManagment.routes.js";
+import SubjectRoutes from "./routes/subject.routes.js";
+import AttendanceRoutes from "./routes/attendance.route.js";
+import ExamRoutes from "./routes/exam.routes.js";
+import ResultRoutes from "./routes/result.route.js";
+import Result from "./model/result.model.js";
 
 dotenv.config();
 
@@ -34,6 +39,10 @@ app.use("/api/auth", authRouter);
 app.use("/api/class", classRoute);
 app.use("/api/section", sectionRoute);
 app.use("/api/user-management", userManagementRoutes);
+app.use("/api/subjects", SubjectRoutes);
+app.use("/api/attendance", AttendanceRoutes);
+app.use("/api/exam", ExamRoutes);
+app.use("/api/result", ResultRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({
